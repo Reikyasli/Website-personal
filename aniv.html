@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Anniversary Efra!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{ --bg:#fff0f5; --accent:#ff6699; --glass: rgba(255, 255, 255, 0.7) }
+    body{
+      margin:0; padding:0; min-height:100vh; text-align:center;
+      background: radial-gradient(circle at 70% 20%, #fff, var(--bg) 65%);
+      color:var(--accent); font-family:'Verdana', sans-serif;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    
+    .container { 
+      max-width: 450px; width: 90%; padding: 40px 20px;
+      background: var(--glass); border-radius: 30px;
+      backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      position: relative; z-index: 10; transition: all 0.8s ease;
+    }
+
+    /* Halaman Kedua (Isi Kado) disembunyikan dulu */
+    #page2 { display: none; opacity: 0; transform: translateY(20px); }
+
+    .profile-frame {
+      width: 140px; height: 140px; margin: 0 auto 20px;
+      border-radius: 50%; border: 5px solid #fff;
+      box-shadow: 0 8px 20px rgba(255,102,153,0.3);
+      overflow: hidden;
+    }
+    .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    h1 { font-size: 26px; margin-bottom: 15px; }
+    p { font-size: 15px; line-height: 1.7; text-align: center; }
+    
+    .btn {
+      border:0; background:var(--accent); color:#fff; padding:15px 30px; border-radius:50px; 
+      cursor:pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(255,102,153,0.4);
+      transition: .3s; font-size: 15px; margin-top: 20px;
+    }
+    .btn:hover { transform: scale(1.05); }
+
+    /* Animasi Bunga/Confetti */
+    .confetti span { position:fixed; top:-10vh; font-size:14px; animation:drop linear infinite; z-index: 0; }
+    @keyframes drop { to { transform:translateY(110vh) rotate(360deg); opacity:0.4 } }
+    
+    #audioTag { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="page1">
+    <div style="font-size: 80px; margin-bottom: 20px;">💌</div>
+    <h1>Ada pesan buat Efra...</h1>
+    <p>Tok Tok.. Reiky mau ngirimin sesuatu yang spesial buat ngerayain 2 tahun kebersamaan kita.</p>
+    <button class="btn" id="btnBuka">Buka Pesan dari Reiky 🎁</button>
+  </div>
+
+  <div class="container" id="page2">
+    <div class="profile-frame">
+      <img src="foto.jpg" alt="Foto Kalian">
+    </div>
+    <h1>Happy 2nd Anniversary! ❤️</h1>
+    <p>Halo Wop, sebelumnya aku minta maaf karena acara kita harus diundur-undur terus tapi aku mau ngucapin makasih udah mau bertahan sama aku sejauh ini. 2 tahun tu ga bentar lho tapi kamu masih mau sama aku terus, aku makasih banget wop. Aku harap aku bisa terus ngasih yang terbaik buat kamu dan kamu juga sebaliknya ya. Kita rayain momen-momen ini buat tumbuh bareng-bareng terus ya wop. Love you so much sayangku, aku harap kita selamanya.</p>
+    <div style="font-size: 40px; margin-top: 10px;">💓💓💓</div>
+    <p style="font-style: italic; font-size: 13px; margin-top: 20px;">- Selamanya bersamamu, Reiky -</p>
+  </div>
+
+  <audio id="audioTag" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    // Audio & Page Transition
+    const btnBuka = document.getElementById('btnBuka');
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const lagu = document.getElementById('audioTag');
+
+    btnBuka.addEventListener('click', () => {
+      // 1. Putar Lagu
+      lagu.play();
+
+      // 2. Animasi Transisi Halaman
+      page1.style.opacity = '0';
+      page1.style.transform = 'scale(0.9)';
+      
+      setTimeout(() => {
+        page1.style.display = 'none';
+        page2.style.display = 'block';
+        
+        // Munculkan page 2 perlahan
+        setTimeout(() => {
+          page2.style.opacity = '1';
+          page2.style.transform = 'translateY(0)';
+        }, 50);
+      }, 500);
+    });
+
+    // Confetti
+    const confetti = document.getElementById('confetti');
+    const icons = ['🌸','✨','❤️','🎀'];
+    for(let i=0; i<60; i++){
+      const s = document.createElement('span');
+      s.textContent = icons[Math.floor(Math.random()*icons.length)];
+      s.style.left = Math.random()*100+'vw';
+      s.style.animationDuration = (4 + Math.random()*5)+'s';
+      s.style.animationDelay = (Math.random()*2)+'s';
+      confetti.appendChild(s);
+    }
+  </script>
+</body>
+</html>
